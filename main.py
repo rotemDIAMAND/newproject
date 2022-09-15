@@ -1,34 +1,37 @@
 import pygame
-import random
+import MineField
 import keyboard
 import pygame.key
 import consts
 import Screen
 
-def go_up():
+def go_up(soldier_place):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if row-1 > 0:
                 soldier_place[row][col]=soldier_place[row - 1][col]
+    return soldier_place
 
-
-def go_down():
+def go_down(soldier_place):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if row + 1 < 25:
                 soldier_place[row][col] = soldier_place[row + 1][col]
+    return soldier_place
 
-def go_left():
+def go_left(soldier_place):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if col + 1 < 50:
                 soldier_place[row][col] = soldier_place[row][col + 1]
+    return soldier_place
 
-def go_right():
+def go_right(soldier_place):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if col - 1 > 0:
                 soldier_place[row][col] = soldier_place[row][col - 1]
+    return soldier_place
 
 def show_net():
     pass
@@ -57,8 +60,7 @@ def lost():
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
 
 def handle_user_events():
-    for event in pygame.event.get():
-        while True:
+    while True:
             if keyboard.is_pressed(consts.UP_KEY):
                 go_up()
             elif keyboard.is_pressed(consts.DOWN_KEY):
@@ -75,25 +77,46 @@ def handle_user_events():
                 lost()
             break
 
-def random_mines(mines):
-    for i in range(20):
-        x = random.randrange(0, 51)
-        y = random.randrange(0, 25)
-        mines.append((x,y))
+
+
+
+
+def print_matrix(two_list):
+    for row in range(len(two_list)):
+        for col in range(len(two_list[row])):
+            print(two_list[row][col],end=' ')
+        print()
 
 def main():
     pygame.init()
+    run = True
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            handle_user_events()
+        Screen.draw_game()
+
+    pygame.quit()
 
 
 
 soldier = consts.START_SOLDIER
 soldier_place = [(0,0),(0,1),(1,0),(1,1),(2,0),(2,1),(3,0),(3,1)]
 mines = []
-random_mines(mines)
-print(mines)
+MineField.random_mines(mines)
+screen = []
+tuple_cordinates=[]
+for row in range(consts.SCREEN_HEIGHT):
+    for col in range(consts.SCREEN_WIDTH):
+        tuple_cordinates.append((row,col))
+    screen.append(tuple_cordinates)
+    tuple_cordinates=[]
+
 
 if __name__ == '__main__':
     main()
+
 
 
 
