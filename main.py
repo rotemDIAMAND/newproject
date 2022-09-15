@@ -19,14 +19,14 @@ def go_down(soldier_place):
                 soldier_place[row][col] = soldier_place[row + 1][col]
     return soldier_place
 
-def go_left(soldier_place):
+def go_left(soldier_place,screen):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if col + 1 < 50:
                 soldier_place[row][col] = soldier_place[row][col + 1]
     return soldier_place
 
-def go_right(soldier_place):
+def go_right(soldier_place,screen):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if col - 1 > 0:
@@ -34,7 +34,7 @@ def go_right(soldier_place):
     return soldier_place
 
 def show_net():
-    pass
+    Screen.draw_game_night()
 
 def check_soldier_touch_flag(soldier_place):
     for row in range(len(soldier_place)):
@@ -60,22 +60,21 @@ def lost():
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
 
 def handle_user_events():
-    while True:
-            if keyboard.is_pressed(consts.UP_KEY):
-                go_up()
-            elif keyboard.is_pressed(consts.DOWN_KEY):
-                go_down()
-            elif keyboard.is_pressed(consts.LEFT_KEY):
-                go_left()
-            elif keyboard.is_pressed(consts.RIGHT_KEY):
-                go_right()
-            elif keyboard.is_pressed(consts.ENTER):
-                show_net()
-            if check_soldier_touch_flag(soldier_place):
-                win()
-            if check_soldier_touch_mines(soldier_place, mines):
-                lost()
-            break
+    if keyboard.is_pressed(consts.UP_KEY):
+        go_up()
+    elif keyboard.is_pressed(consts.DOWN_KEY):
+        go_down()
+    elif keyboard.is_pressed(consts.LEFT_KEY):
+        go_left()
+    elif keyboard.is_pressed(consts.RIGHT_KEY):
+        go_right()
+    elif keyboard.is_pressed(consts.ENTER):
+        show_net()
+    if check_soldier_touch_flag(soldier_place):
+        win()
+    if check_soldier_touch_mines(soldier_place, mines):
+        lost()
+
 
 
 
@@ -90,19 +89,21 @@ def print_matrix(two_list):
 def main():
     pygame.init()
     run = True
+    grass=[]
+    Screen.random_grass(grass)
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
             handle_user_events()
-        Screen.draw_game()
+        Screen.draw_game(0,0,grass)
 
     pygame.quit()
 
 
 
 soldier = consts.START_SOLDIER
-soldier_place = [(0,0),(0,1),(1,0),(1,1),(2,0),(2,1),(3,0),(3,1)]
+soldier_place = (0,0)
 mines = []
 MineField.random_mines(mines)
 screen = []
