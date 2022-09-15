@@ -1,5 +1,5 @@
 #1
-print(" Hello Enter your  name: ")
+print("cow")
 name = input()
 #2
 print(" Hello Enter your adress: ")
