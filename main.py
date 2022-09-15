@@ -84,6 +84,12 @@ def random_mines(mines):
         y = random.randrange(0, 25)
         mines.append((x,y))
 
+def print_matrix(two_list):
+    for row in range(len(two_list)):
+        for col in range(len(two_list[row])):
+            print(two_list[row][col],end=' ')
+        print()
+
 def main():
     pygame.init()
 
@@ -93,10 +99,15 @@ soldier = consts.START_SOLDIER
 soldier_place = [(0,0),(0,1),(1,0),(1,1),(2,0),(2,1),(3,0),(3,1)]
 mines = []
 random_mines(mines)
-print(mines)
+screen = []
+tuple_cordinates=[]
+for row in range(consts.SCREEN_HEIGHT):
+    for col in range(consts.SCREEN_WIDTH):
+        tuple_cordinates.append((row,col))
+    screen.append(tuple_cordinates)
+    tuple_cordinates=[]
 
-if __name__ == '__main__':
-    main()
+
 
 
 
