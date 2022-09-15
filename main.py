@@ -5,30 +5,33 @@ import pygame.key
 import consts
 import Screen
 
-def go_up():
+def go_up(soldier_place):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if row-1 > 0:
                 soldier_place[row][col]=soldier_place[row - 1][col]
+    return soldier_place
 
-
-def go_down():
+def go_down(soldier_place):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if row + 1 < 25:
                 soldier_place[row][col] = soldier_place[row + 1][col]
+    return soldier_place
 
-def go_left():
+def go_left(soldier_place):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if col + 1 < 50:
                 soldier_place[row][col] = soldier_place[row][col + 1]
+    return soldier_place
 
-def go_right():
+def go_right(soldier_place):
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if col - 1 > 0:
                 soldier_place[row][col] = soldier_place[row][col - 1]
+    return soldier_place
 
 def show_net():
     pass
