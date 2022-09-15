@@ -1,11 +1,3 @@
-#1
-print("dog")
-name = input()
-#2
-print(" Hello Enter your adress: ")
-adress =input()
+import pygame
+import random
 
-
-
-
-print(" Hello " , name ," you live in: america" )
