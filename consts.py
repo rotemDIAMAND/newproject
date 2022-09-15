@@ -1,5 +1,5 @@
 import pygame.key
-import co
+
 SOLDIER_HEIGHT = 4
 SOLDIER_WIDTH = 2
 START_SOLDIER = (0,0)
