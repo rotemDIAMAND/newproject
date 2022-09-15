@@ -6,21 +6,29 @@ import consts
 import Screen
 
 def go_up(soldier_place,screen):
+    row=soldier_place[0]
+    col=soldier_place[1]
     if row-1 > 0:
             soldier_place[row][col]=screen[row - 1][col]
     return soldier_place
 
 def go_down(soldier_place,screen):
+    row=soldier_place[0]
+    col=soldier_place[1]
     if row + 1 < 25:
          soldier_place[row][col] = screen[row + 1][col]
     return soldier_place
 
 def go_left(soldier_place,screen):
+    row=soldier_place[0]
+    col=soldier_place[1]
     if col + 1 < 50:
          soldier_place[row][col] = screen[row][col + 1]
     return soldier_place
 
 def go_right(soldier_place,screen):
+    row=soldier_place[0]
+    col=soldier_place[1]
     if col - 1 > 0:
         soldier_place[row][col] = screen[row][col - 1]
     return soldier_place
@@ -29,19 +37,15 @@ def show_net():
     Screen.draw_game_night()
 
 def check_soldier_touch_flag(soldier_place):
-    for row in range(len(soldier_place)):
-        for col in range(len(soldier_place[row])):
-            if (row,col) == consts.FLAG_X_Y:
-                return True
+    if soldier_place == consts.FLAG_X_Y:
+            return True
     return False
 
 def check_soldier_touch_mines(soldier_place,mines):
-    for row in range(len(soldier_place)):
-        for col in range(len(soldier_place[row])):
-            for i in range(20):
-                if (row, col) == mines[i]:
-                    return True
-    return False
+     for i in range(20):
+         if soldier_place == mines[i]:
+            return True
+     return False
 
 def win():
     Screen.draw_message(consts.WIN_MESSAGE, consts.WIN_FONT_SIZE,
@@ -51,16 +55,17 @@ def lost():
     Screen.draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
 
-def handle_user_events():
-    if keyboard.is_pressed(consts.UP_KEY):
-        go_up(soldier_place,screen)
-    elif keyboard.is_pressed(consts.DOWN_KEY):
-        go_down(soldier_place,screen)
-    elif keyboard.is_pressed(consts.LEFT_KEY):
-        go_left(soldier_place,screen)
-    elif keyboard.is_pressed(consts.RIGHT_KEY):
-        go_right(soldier_place,screen)
-    elif keyboard.is_pressed(consts.ENTER):
+def handle_user_events(soldier_place,screen,mines):
+    keys = pygame.key.get_pressed()
+    if keys[consts.UP_KEY]:
+        soldier_place1 = go_up(soldier_place,screen)
+    elif keys[consts.DOWN_KEY]:
+        soldier_place1 = go_down(soldier_place,screen)
+    elif keys[consts.LEFT_KEY]:
+        soldier_place1 = go_left(soldier_place,screen)
+    elif keys[consts.RIGHT_KEY]:
+        soldier_place1 = go_right(soldier_place,screen)
+    elif keys[consts.ENTER]:
         show_net()
     if check_soldier_touch_flag(soldier_place):
         win()
@@ -79,6 +84,17 @@ def print_matrix(two_list):
         print()
 
 def main():
+    soldier = consts.START_SOLDIER
+    soldier_place=soldier
+    mines = []
+    MineField.random_mines(mines)
+    screen = []
+    tuple_cordinates = []
+    for row in range(consts.SCREEN_HEIGHT):
+        for col in range(consts.SCREEN_WIDTH):
+            tuple_cordinates.append((row, col))
+        screen.append(tuple_cordinates)
+        tuple_cordinates = []
     pygame.init()
     run = True
     grass=[]
@@ -87,24 +103,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            handle_user_events()
+            soldier_place1 = handle_user_events(soldier_place,screen,mines)
         Screen.draw_game(0,0,grass)
 
     pygame.quit()
-
-
-
-soldier = consts.START_SOLDIER
-soldier_place = (0,0)
-mines = []
-MineField.random_mines(mines)
-screen = []
-tuple_cordinates=[]
-for row in range(consts.SCREEN_HEIGHT):
-    for col in range(consts.SCREEN_WIDTH):
-        tuple_cordinates.append((row,col))
-    screen.append(tuple_cordinates)
-    tuple_cordinates=[]
 
 
 if __name__ == '__main__':
