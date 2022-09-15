@@ -9,7 +9,8 @@ def go_up():
     for row in range(len(soldier_place)):
         for col in range(len(soldier_place[row])):
             if row-1 > 0:
-                soldier_place[row][col]=soldier_place[row - 1][col]
+                soldier_place[row][col] = soldier_place[row - 1][col]
+    return soldier_place
 
 
 def go_down():
