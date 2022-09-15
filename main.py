@@ -8,4 +8,4 @@ adress =input()
 
 
 
-print(" Hello " , name ," you live in: ", adress )
+print(" Hello " , name ," you live in: america" )
