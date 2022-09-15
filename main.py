@@ -5,32 +5,24 @@ import pygame.key
 import consts
 import Screen
 
-def go_up(soldier_place):
-    for row in range(len(soldier_place)):
-        for col in range(len(soldier_place[row])):
-            if row-1 > 0:
-                soldier_place[row][col]=soldier_place[row - 1][col]
+def go_up(soldier_place,screen):
+    if row-1 > 0:
+            soldier_place[row][col]=screen[row - 1][col]
     return soldier_place
 
-def go_down(soldier_place):
-    for row in range(len(soldier_place)):
-        for col in range(len(soldier_place[row])):
-            if row + 1 < 25:
-                soldier_place[row][col] = soldier_place[row + 1][col]
+def go_down(soldier_place,screen):
+    if row + 1 < 25:
+         soldier_place[row][col] = screen[row + 1][col]
     return soldier_place
 
 def go_left(soldier_place,screen):
-    for row in range(len(soldier_place)):
-        for col in range(len(soldier_place[row])):
-            if col + 1 < 50:
-                soldier_place[row][col] = soldier_place[row][col + 1]
+    if col + 1 < 50:
+         soldier_place[row][col] = screen[row][col + 1]
     return soldier_place
 
 def go_right(soldier_place,screen):
-    for row in range(len(soldier_place)):
-        for col in range(len(soldier_place[row])):
-            if col - 1 > 0:
-                soldier_place[row][col] = soldier_place[row][col - 1]
+    if col - 1 > 0:
+        soldier_place[row][col] = screen[row][col - 1]
     return soldier_place
 
 def show_net():
@@ -61,13 +53,13 @@ def lost():
 
 def handle_user_events():
     if keyboard.is_pressed(consts.UP_KEY):
-        go_up()
+        go_up(soldier_place,screen)
     elif keyboard.is_pressed(consts.DOWN_KEY):
-        go_down()
+        go_down(soldier_place,screen)
     elif keyboard.is_pressed(consts.LEFT_KEY):
-        go_left()
+        go_left(soldier_place,screen)
     elif keyboard.is_pressed(consts.RIGHT_KEY):
-        go_right()
+        go_right(soldier_place,screen)
     elif keyboard.is_pressed(consts.ENTER):
         show_net()
     if check_soldier_touch_flag(soldier_place):
