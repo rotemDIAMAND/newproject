@@ -1,17 +1,4 @@
 #1
-
-
-
-
-
-
-
-
-
-
-
-
-
 print("dog")
 name = input()
 #2
