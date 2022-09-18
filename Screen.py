@@ -62,9 +62,7 @@ def draw_message(message, font_size, color, location):
     font = pygame.font.SysFont(consts.FONT_NAME, font_size)
     text_img = font.render(message, True, color)
     screen.blit(text_img, location)
-    pygame.time.delay(5000)
-    run = False
-    return run
+    pygame.time.delay(1000)
 
 
 def random_grass(grass):

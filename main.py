@@ -65,9 +65,11 @@ def handle_user_events(soldier_place,screen,mines,run):
     elif keyboard.is_pressed("enter"):
         show_net(soldier_place)
     if check_soldier_touch_flag(soldier_place):
-        run = Screen.win()
+        Screen.win()
+        run = False
     if check_soldier_touch_mines(soldier_place, mines):
-        run = Screen.lost()
+        Screen.lost()
+        run = False
     return soldier_place, run
 
 
