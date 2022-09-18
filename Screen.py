@@ -12,6 +12,7 @@ GRASS = pygame.image.load("grass.png")
 FLAG = pygame.image.load("flag.png")
 EXPLOSION = pygame.image.load("explotion.png")
 MINE = pygame.image.load("mine.png")
+SOLDIER_HURT = Soldier.SOLDIER_HURT_IMAGE
 
 
 SOLDIER = pygame.transform.scale(Soldier.SOLDIER_IMAGE, (cell * 2, cell * 4))
@@ -19,7 +20,8 @@ GRASS_SCREEN = pygame.transform.scale(GRASS, (cell * 2, cell * 2))
 FLAG_SCREEN = pygame.transform.scale(FLAG, (cell * 4, cell * 3))
 SOLDIER_NIGHT = pygame.transform.scale(Soldier.SOLDIER_MATRIX_IMAGE, (cell * 2, cell * 4))
 MINE_SCREEN = pygame.transform.scale(MINE, (cell * 3, cell))
-flag_start = False
+SOLDIER_HURT_SCREEN = pygame.transform.scale(Soldier.SOLDIER_HURT_IMAGE, (cell * 2, cell * 4))
+EXPLOSION_SCREEN = pygame.transform.scale(EXPLOSION, (cell * 3, cell * 1))
 
 
 def start_game(message):
@@ -40,7 +42,9 @@ def draw_grass(grass):
         screen.blit(GRASS_SCREEN, grass[i])
 
 
-def lost():
+def lost(row,col):
+    screen.blit(SOLDIER_HURT_SCREEN, (row * cell, col * cell))
+    screen.blit(EXPLOSION_SCREEN, (row * cell, (col+3) * cell))
     draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
 
@@ -53,9 +57,9 @@ def win():
 def draw_game_night(row, col):
     screen.fill(consts.NIGHT_COLOR)
     drawGrid()
-    screen.blit(SOLDIER_NIGHT, (row * cell, col * cell))
     for i in range(len(MineField.mines)):
         screen.blit(MINE_SCREEN, (MineField.mines[i][0] * cell, MineField.mines[i][1] * cell))
+    screen.blit(SOLDIER_NIGHT, (row * cell, col * cell))
     pygame.display.update()
     pygame.time.delay(1000)
     return

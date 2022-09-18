@@ -19,8 +19,8 @@ def check_soldier_touch_flag(soldier_place, screen):
         return False
     for row_soldier in range(len(d_soldier)):
         for col_soldier in range(len(d_soldier[row_soldier])):
-            for row_flag in range(len(d_soldier)):
-                for col_flag in range(len(d_soldier[row_flag])):
+            for row_flag in range(len(d_flag)):
+                for col_flag in range(len(d_flag[row_flag])):
                     if d_soldier[row_soldier][col_soldier] == d_flag[row_flag][col_flag]:
                         return True
     return False
@@ -95,7 +95,7 @@ def main():
                 Screen.win()
                 run = False
             if check_soldier_touch_mines(soldier_place, MineField.mines, screen):
-                Screen.lost()
+                Screen.lost(soldier_place[0],soldier_place[1])
                 run = False
     pygame.quit()
 
