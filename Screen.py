@@ -22,8 +22,8 @@ MINE_SCREEN = pygame.transform.scale(MINE, (cell*3, cell))
 flag_start = False
 
 def start_game(message):
-    pygame.display.set_caption("welcome to the flag game, have fun")
-    pygame.display.update()
+    draw_message(message, consts.LOSE_FONT_SIZE,
+                 consts.LOSE_COLOR, consts.LOSE_LOCATION)
 
 
 def draw_game(row,col,grass):
