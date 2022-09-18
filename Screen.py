@@ -3,6 +3,7 @@ import consts
 import MineField
 import Soldier
 import random
+import sys
 
 cell = 20
 screen = pygame.display.set_mode((consts.SCREEN_WIDTH*cell, consts.SCREEN_HEIGHT*cell))
@@ -62,6 +63,7 @@ def draw_message(message, font_size, color, location):
     font = pygame.font.SysFont(consts.FONT_NAME, font_size)
     text_img = font.render(message, True, color)
     screen.blit(text_img, location)
+    pygame.display.update()
     pygame.time.delay(1000)
 
 
