@@ -8,6 +8,9 @@ import Screen
 def go_up(soldier_place,screen):
     row = soldier_place[0]
     col = soldier_place[1]
+    d_soldier = solider_flag_all(2, 4, soldier_place, screen)
+    if d_soldier[0] == -1:
+        return soldier_place
     if col - 1 >= 0:
         soldier_place = screen[row][col - 1]
     return soldier_place
@@ -15,7 +18,10 @@ def go_up(soldier_place,screen):
 def go_down(soldier_place,screen):
     row = soldier_place[0]
     col = soldier_place[1]
-    if col + 1 < 25:
+    d_soldier = solider_flag_all(2, 4, soldier_place, screen)
+    if d_soldier[0] == -1:
+        return soldier_place
+    if col + 1 < len(screen[row]):
         soldier_place = screen[row][col + 1]
     return soldier_place
 
@@ -23,6 +29,9 @@ def go_down(soldier_place,screen):
 def go_left(soldier_place,screen):
     row = soldier_place[0]
     col = soldier_place[1]
+    d_soldier = solider_flag_all(2, 4, soldier_place, screen)
+    if d_soldier[0] == -1:
+        return soldier_place
     if row - 1 >= 0:
         soldier_place = screen[row - 1][col]
     return soldier_place
@@ -31,7 +40,10 @@ def go_left(soldier_place,screen):
 def go_right(soldier_place,screen):
     row=soldier_place[0]
     col=soldier_place[1]
-    if row + 1 < 50:
+    d_soldier = solider_flag_all(2, 4, soldier_place, screen)
+    if d_soldier[0] == -1:
+        return soldier_place
+    if row + 1 < len(screen):
          soldier_place = screen[row + 1][col]
     return soldier_place
 
@@ -42,6 +54,8 @@ def show_net(soldier_place):
 def check_soldier_touch_flag(soldier_place,screen):
     d_soldier = solider_flag_all(2,4,soldier_place, screen)
     d_flag = solider_flag_all(4,3,consts.FLAG_X_Y,screen)
+    if d_soldier[0] == -1:
+        return False
     for row_soldier in range(len(d_soldier)):
         for col_soldier in range(len(d_soldier[row_soldier])):
             for row_flag in range(len(d_soldier)):
@@ -51,8 +65,9 @@ def check_soldier_touch_flag(soldier_place,screen):
     return False
 
 def check_soldier_touch_mines(soldier_place,mines,screen):
-     print(soldier_place)
      d_soldier=solider_flag_all(2,4,soldier_place,screen)
+     if d_soldier[0] == -1:
+         return False
      for row in range(len(d_soldier)):
          for col in range(len(d_soldier[row])):
              for i in range(20):
@@ -71,7 +86,6 @@ def solider_flag_all(x, y, place, screen):
                 return [-1]
             row1.append((place[0]+row,place[1]+col))
         d_soldier_flag.append(row1)
-    print_matrix(d_soldier_flag)
     return d_soldier_flag
 
 
