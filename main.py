@@ -44,12 +44,26 @@ def check_soldier_touch_flag(soldier_place):
             return True
     return False
 
-def check_soldier_touch_mines(soldier_place,mines):
+def check_soldier_touch_mines(soldier_place,mines,screen):
      print(soldier_place)
+     d_soldier=solider_all(soldier_place,screen)
+     count = 0
      for i in range(20):
-         if soldier_place == mines[i]:
+        if soldier_place == mines[i]:
             return True
      return False
+
+def solider_all(soldier_place,screen):
+    d_soldier=[]
+    row1=[]
+    for row in range(2):
+        for col in range(4):
+            if soldier_place[0]+row>len(screen) or soldier_place[1]+col>len(screen[row]):
+                return [-1]
+            row1.append((soldier_place[0]+row,soldier_place[1]+col))
+        d_soldier.append(row1)
+    print_matrix(d_soldier)
+    return d_soldier
 
 
 def handle_user_events(soldier_place,screen,mines,run):
@@ -67,7 +81,7 @@ def handle_user_events(soldier_place,screen,mines,run):
     if check_soldier_touch_flag(soldier_place):
         Screen.win()
         run = False
-    if check_soldier_touch_mines(soldier_place, mines):
+    if check_soldier_touch_mines(soldier_place, mines,screen):
         Screen.lost()
         run = False
     return soldier_place, run
