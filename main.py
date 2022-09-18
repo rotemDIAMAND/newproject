@@ -108,6 +108,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
             soldier_place = handle_user_events(soldier_place,screen,mines)
+            print(soldier_place)
             Screen.draw_game(soldier_place[0], soldier_place[1], grass)
 
     pygame.quit()
