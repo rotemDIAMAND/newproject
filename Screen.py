@@ -23,8 +23,8 @@ flag_start = False
 
 
 def start_game(message):
-    draw_message(message, consts.LOSE_FONT_SIZE,
-                 (255, 255, 255), consts.WIN_LOCATION)
+    draw_message(message, consts.START_FONT_SIZE,
+                 (255, 255, 255), consts.START_LOCATION)
 
 
 def draw_game(row, col, grass):

@@ -84,7 +84,7 @@ def main():
     Screen.random_grass(grass)
     run = True
     Screen.draw_game(soldier_place[0], soldier_place[1], grass)
-    Screen.start_game("Have fun!")
+    Screen.start_game("welcome to the flag game, Have fun!")
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
