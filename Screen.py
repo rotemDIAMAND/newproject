@@ -18,7 +18,7 @@ FLAG_SCREEN = pygame.transform.scale(FLAG, (cell*2, cell*4))
 
 def draw_game(row,col,grass):
     screen.fill(consts.BACKGROUND_COLOR)
-    screen.blit(SOLDIER,(row,col))
+    screen.blit(SOLDIER,(row*cell,col*cell))
     screen.blit(FLAG_SCREEN, (consts.X_FLAG_MAX*cell, consts.Y_FLAG_MAX*cell))
     draw_grass(grass)
     pygame.display.update()
