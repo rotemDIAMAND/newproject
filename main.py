@@ -39,34 +39,43 @@ def go_right(soldier_place,screen):
 def show_net(soldier_place):
     Screen.draw_game_night(soldier_place[0], soldier_place[1])
 
-def check_soldier_touch_flag(soldier_place):
-    if soldier_place == consts.FLAG_X_Y or (consts.X_FLAG_MAX,consts.Y_FLAG_MAX)==soldier_place:
-            return True
+def check_soldier_touch_flag(soldier_place,screen):
+    d_soldier = solider_flag_all(2,4,soldier_place, screen)
+    d_flag = solider_flag_all(4,3,consts.FLAG_X_Y,screen)
+    for row_soldier in range(len(d_soldier)):
+        for col_soldier in range(len(d_soldier[row_soldier])):
+            for row_flag in range(len(d_soldier)):
+                for col_flag in range(len(d_soldier[row_flag])):
+                    if d_soldier[row_soldier][col_soldier] == d_flag[row_flag][col_flag]:
+                        return True
     return False
 
 def check_soldier_touch_mines(soldier_place,mines,screen):
      print(soldier_place)
-     d_soldier=solider_all(soldier_place,screen)
-     count = 0
-     for i in range(20):
-        if soldier_place == mines[i]:
-            return True
+     d_soldier=solider_flag_all(2,4,soldier_place,screen)
+     for row in range(len(d_soldier)):
+         for col in range(len(d_soldier[row])):
+             for i in range(20):
+                 if d_soldier[row][col] == mines[i]\
+                         or d_soldier[row][col] == (mines[i][0]+1,mines[i][1])\
+                         or d_soldier[row][col] == (mines[i][0]+2,mines[i][1]):
+                     return True
      return False
 
-def solider_all(soldier_place,screen):
-    d_soldier=[]
+def solider_flag_all(x, y, place, screen):
+    d_soldier_flag=[]
     row1=[]
-    for row in range(2):
-        for col in range(4):
-            if soldier_place[0]+row>len(screen) or soldier_place[1]+col>len(screen[row]):
+    for row in range(x):
+        for col in range(y):
+            if place[0]+row>len(screen) or place[1]+col>len(screen[row]):
                 return [-1]
-            row1.append((soldier_place[0]+row,soldier_place[1]+col))
-        d_soldier.append(row1)
-    print_matrix(d_soldier)
-    return d_soldier
+            row1.append((place[0]+row,place[1]+col))
+        d_soldier_flag.append(row1)
+    print_matrix(d_soldier_flag)
+    return d_soldier_flag
 
 
-def handle_user_events(soldier_place,screen,mines,run):
+def handle_user_events(soldier_place,screen):
     keys = pygame.key.get_pressed()
     if keys[consts.UP_KEY]:
         soldier_place = go_up(soldier_place,screen)
@@ -78,17 +87,7 @@ def handle_user_events(soldier_place,screen,mines,run):
         soldier_place = go_right(soldier_place,screen)
     elif keyboard.is_pressed("enter"):
         show_net(soldier_place)
-    if check_soldier_touch_flag(soldier_place):
-        Screen.win()
-        run = False
-    if check_soldier_touch_mines(soldier_place, mines,screen):
-        Screen.lost()
-        run = False
-    return soldier_place, run
-
-
-
-
+    return soldier_place
 
 
 def print_matrix(two_list):
@@ -117,9 +116,14 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            soldier_place,run = handle_user_events(soldier_place,screen,MineField.mines,run)
+            soldier_place = handle_user_events(soldier_place,screen)
             Screen.draw_game(soldier_place[0], soldier_place[1], grass)
-
+            if check_soldier_touch_flag(soldier_place, screen):
+                Screen.win()
+                run = False
+            if check_soldier_touch_mines(soldier_place, MineField.mines, screen):
+                Screen.lost()
+                run = False
     pygame.quit()
 
 

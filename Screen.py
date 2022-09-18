@@ -12,14 +12,15 @@ GRASS = pygame.image.load("grass.png")
 FLAG = pygame.image.load("flag.png")
 EXPLOSION = pygame.image.load("explotion.png")
 SOLDIER = pygame.transform.scale(Soldier.SOLDIER_IMAGE,(cell*2,cell*4))
-GRASS_SCREEN = pygame.transform.scale(GRASS, (cell, cell))
-FLAG_SCREEN = pygame.transform.scale(FLAG, (cell*2, cell*4))
+GRASS_SCREEN = pygame.transform.scale(GRASS, (cell*2, cell*2))
+FLAG_SCREEN = pygame.transform.scale(FLAG, (cell*4, cell*3))
 SOLDIER_NIGHT = pygame.transform.scale(Soldier.SOLDIER_MATRIX_IMAGE,(cell*2,cell*4))
 MINE = pygame.transform.scale(MineField.MINE, (cell*3, cell))
 flag_start = False
 
 def start_game(message):
     pygame.display.set_caption("welcome to the flag game, have fun")
+    pygame.display.update()
 
 
 def draw_game(row,col,grass):
