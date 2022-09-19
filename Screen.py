@@ -43,8 +43,8 @@ def draw_grass(grass):
 
 
 def lost(row,col):
-    screen.blit(SOLDIER_HURT_SCREEN, (row * cell, col * cell))
-    screen.blit(EXPLOSION_SCREEN, (row * cell, (col+3) * cell))
+    # screen.blit(SOLDIER_HURT_SCREEN, (row * cell, col * cell))
+    # screen.blit(EXPLOSION_SCREEN, (row * cell, (col+3) * cell))
     draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
                  consts.LOSE_COLOR, consts.LOSE_LOCATION)
 
