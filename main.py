@@ -6,6 +6,7 @@ import pygame.key
 import Soldier
 import consts
 import Screen
+import DB
 
 
 def show_net(soldier_place):

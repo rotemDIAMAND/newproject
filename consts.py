@@ -36,3 +36,13 @@ WIN_LOCATION = \
 START_LOCATION = \
     (40, 20)
 START_FONT_SIZE = int(0.15 * SCREEN_WIDTH*5)
+
+ONE_KEY = pygame.K_1
+TWO_KEY = pygame.K_2
+THREE_KEY = pygame.K_3
+FOUR_KEY = pygame.K_4
+FIVE_KEY = pygame.K_5
+SIX_KEY = pygame.K_6
+SEVEN_KEY = pygame.K_7
+EIGHT_KEY = pygame.K_8
+NINE_KEY = pygame.K_9
