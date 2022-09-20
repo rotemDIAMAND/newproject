@@ -62,10 +62,10 @@ def opening_csv_file(key):
 
 def what_time_key_pressed(key, data, time):
     key1 = detect_key(key)
-    if time < 1.0:
+    if time <= 1.0:
         file = creating_cvs_file(data)
         put_data_in_chart(key1, file)
-        return -1
+        return data
     else:
         data_continue = opening_csv_file(key1)
         return data_continue

@@ -2,6 +2,7 @@ import pygame
 import MineField
 import keyboard
 import pygame.key
+import time
 
 import Soldier
 import consts
@@ -74,6 +75,17 @@ def print_matrix(two_list):
             print(two_list[row][col], end=' ')
         print()
 
+def put_in_place(soldier_place, screen, grass, mines, run):
+    soldier_place = handle_user_events(soldier_place, screen)
+    Screen.draw_game(soldier_place[0], soldier_place[1], grass)
+    if check_soldier_touch_flag(soldier_place, screen):
+        Screen.win()
+        run = False
+    if check_soldier_touch_mines(soldier_place, mines, screen):
+        Screen.lost(soldier_place[0], soldier_place[1])
+        run = False
+    return soldier_place, screen, grass, mines, run
+
 
 def main():
     soldier = consts.START_SOLDIER
@@ -88,16 +100,20 @@ def main():
     Screen.start_game("welcome to the flag game, Have fun!")
     while run:
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 run = False
-            soldier_place = handle_user_events(soldier_place, screen)
-            Screen.draw_game(soldier_place[0], soldier_place[1], grass)
-            if check_soldier_touch_flag(soldier_place, screen):
-                Screen.win()
-                run = False
-            if check_soldier_touch_mines(soldier_place, MineField.mines, screen):
-                Screen.lost(soldier_place[0],soldier_place[1])
-                run = False
+            if event.type == pygame.KEYDOWN:
+                key = pygame.key.get_pressed()
+                if DB.detect_key(key) != False:
+                    start_time = time.time()
+            if event.type == pygame.KEYUP:
+                if  DB.detect_key(key) != False:
+                    time_key = time.time() - start_time
+                    data = DB.main_database(soldier_place, )
+
+
+
     pygame.quit()
 
 
